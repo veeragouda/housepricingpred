@@ -1,0 +1,42 @@
+
+
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+%matplotlib inline 
+import matplotlib
+import seaborn as sns
+matplotlib.rcParams["figure.figsize"]=(20,10)
+
+df1 = pd.read_csv("C:\\viru\\galaata DS Projects\\houseprice_prediction\\Bengaluru_House_Data.csv")
+
+df1.columns/ index
+
+df1.groupby("area_type")["area_type"].agg("count")
+
+df2 = df1.drop(['area_type', 'availability','society','balcony'],axis="columns")
+
+df3 = df2.dropna()
+
+df3.isnull()
+
+df3.isnull().sum()
+
+df3["size"].unique()
+
+df3["bhk"] = df3["size"].apply(lambda x: int(x.split(" ")[0]))
+
+df3["bhk"].unique()
+
+df3[df3.bhk>15]
+
+df3.total_sqft.unique()
+
+def is_float (x):
+    try:
+        float(x)
+    except:
+        return False
+    return True
+
+df3[~df3["total_sqft"].apply(is_float)]
